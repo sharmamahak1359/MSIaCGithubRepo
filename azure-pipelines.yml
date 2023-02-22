@@ -42,28 +42,6 @@ stages:
         azureSubscription: 'Pay-As-You-Go(777c3b0d-95fe-45ee-a36e-3784cc1918b1)'
         appName: 'msiacappservice'
         containers: 'webapp'
-- stage: validate
-  jobs:
-    - job: validate
-      continueOnError: false
-      steps: 
-    
-      - task: TerraformTaskV3@3
-        displayName: 'init'
-        inputs:
-          provider: 'azurerm'
-          command: 'init'
-          backendServiceArm: 'asc'
-          backendAzureRmResourceGroupName: 'sharmargmahak'
-          backendAzureRmStorageAccountName: 'backendstorageaccmahak'
-          backendAzureRmContainerName: 'mstfstate'
-          backendAzureRmKey: 'terraform.tfstate'
-      - task: TerraformTaskV3@3
-        displayName: 'validate'
-        inputs:
-          provider: 'azurerm'
-          command: 'validate'
-
 - stage: iac
   jobs:
       - deployment: iac 
@@ -99,4 +77,4 @@ stages:
                  inputs:
                    provider: 'azurerm'
                    command: 'apply'
-                   environmentServiceNameAzureRM: 'msiacsc' 
+                   environmentServiceNameAzureRM: 'msiacsc'
