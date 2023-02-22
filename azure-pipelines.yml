@@ -42,3 +42,39 @@ stages:
         azureSubscription: 'Pay-As-You-Go(777c3b0d-95fe-45ee-a36e-3784cc1918b1)'
         appName: 'msiacappservice'
         containers: 'webapp'
+- stage: iac
+  jobs:
+      - deployment: iac 
+        continueOnError: false
+        environment: 'dev'
+        strategy:
+         runOnce:
+           deploy:
+             steps:
+               - checkout: self
+               - task: TerraformInstaller@0
+                 displayName: 'install'
+                 inputs:
+                   terraformVersion: '1.3.7'
+               - task: TerraformTaskV3@3
+                 displayName: 'init'
+                 inputs:
+                   provider: 'azurerm'
+                   command: 'init'
+                   backendServiceArm: 'msiacsc'
+                   backendAzureRmResourceGroupName: 'msiacrg'
+                   backendAzureRmStorageAccountName: 'msiacstorageaccount'
+                   backendAzureRmContainerName: 'msiaccontainer'
+                   backendAzureRmKey: 'terraform.tfstate'
+               - task: TerraformTaskV3@3
+                 displayName: 'plan'
+                 inputs:
+                   provider: 'azurerm'
+                   command: 'plan'
+                   environmentServiceNameAzureRM: 'msiacsc'
+               - task: TerraformTaskV3@3
+                 displayName: 'apply'
+                 inputs:
+                   provider: 'azurerm'
+                   command: 'apply'
+                   environmentServiceNameAzureRM: 'msiacsc'
