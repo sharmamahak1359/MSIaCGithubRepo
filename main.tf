@@ -9,14 +9,14 @@ terraform {
 provider "azurerm"{
   features  {}
 }
-//terraform{
-//backend "azurerm"{
-    //resource_group_name = "ms-rg"
-    //storage_account_name = "smtfaccount"
-    //container_name = "mstfcontainer"
-    //key = "terraform.tfstate"
-//}
-//}
+terraform{
+backend "azurerm"{
+    resource_group_name = "msiacrg"
+    storage_account_name = "msiacstorageaccount"
+    container_name = "msiaccontainer"
+    key = "terraform.tfstate"
+}
+}
 
 resource "azurerm_resource_group" "resourcegroup" {
     name = "msiacrg"
