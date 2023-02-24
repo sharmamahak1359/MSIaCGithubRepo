@@ -47,10 +47,10 @@ resource "azurerm_app_service" "appservice" {
     location = azurerm_resource_group.resourcegroup.location
     resource_group_name = azurerm_resource_group.resourcegroup.name
     app_service_plan_id = azurerm_app_service_plan.serviceplan.id
-  site_config {
-    dotnet_framework_version = "v5.0"
-    always_on                = true
-  }
+  //site_config {
+    //dotnet_framework_version = "v5.0"
+    //always_on                = true
+  //}
 
   app_settings = {
     "WEBSITES_ENABLE_APP_SERVICE_STORAGE" = "false"
@@ -59,4 +59,14 @@ resource "azurerm_app_service" "appservice" {
     "DOCKER_REGISTRY_SERVER_PASSWORD"    = azurerm_container_registry.azurecontainerregistry.admin_password
     "WEBSITES_PORT"                      = "80"
   }
+}
+resource "azurerm_app_service" "msappservice" {
+    name = "mymsiacappservice"
+    location = azurerm_resource_group.resourcegroup.location
+    resource_group_name = azurerm_resource_group.resourcegroup.name
+    app_service_plan_id = azurerm_app_service_plan.serviceplan.id
+  //site_config {
+    //dotnet_framework_version = "v5.0"
+    //always_on                = true
+  //}
 }
